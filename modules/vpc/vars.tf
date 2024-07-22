@@ -1,0 +1,9 @@
+variable "vpc_cidr" {}
+variable "env" {}
+variable "public_subnet" {}
+variable "private_subnet" {}
+variable "azs" {}
+variable "default_vpc_id" {}
+variable "account_no" {}
+variable "default_vpc_cidr" {}
+variable "default_vpc_route_table_id" {}
