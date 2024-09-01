@@ -5,7 +5,7 @@ dev:
 
 prode:
 	rm -rf .terraform
-	terraform init -reconfigure -backend-config=env-prode/state.tfvars
+	terraform init -backend-config=env-prode/state.tfvars
 	terraform apply -auto-approve -var-file=env-prode/input.tfvars
 
 dev-destroy:
