@@ -1,3 +1,3 @@
 bucket = "terraform-d75"
-key    = "expense-project/d75/prod/terrraform.tfstate"
+key    = "expense-project//prod/terrraform1.tfstate"
 region = "us-east-1"
