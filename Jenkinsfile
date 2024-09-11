@@ -1,25 +1,33 @@
 pipeline {
-    agent {label 'workstation'}
+  agent { label 'workstation'}
 
-   options{
-   ansiColor('xterm')
-   }
+  options {
+    ansiColor('xterm')
+  }
 
-    parameters{
-    choice(name: 'ENV', choices: ['dev', 'prod'], description: 'Pick environment')
-    choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose action')
+  parameters {
+    choice(name: 'ENV', choices: ['dev', 'prod'], description: 'Choose Environment')
+    choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose Action')
+  }
+
+  stages {
+
+    stage('Terraform Plan') {
+      steps {
+        sh 'terraform init -backend-config=env-${ENV}/state.tfvars'
+        sh 'terraform plan -var-file=env-${ENV}/inputs.tfvars'
+      }
     }
-    stages {
-        stage('Terraform plan') {
-            steps {
-                sh 'terraform init -migrate-state -backend-config=env-${ENV}/state.tfvars'
-                sh 'terraform plan -var-file=env-${ENV}/input.tfvars'
-            }
-        }
-        stage('Terraform Apply') {
-            steps {
-                sh 'terraform ${ACTION} -var-file=env-${ENV}/input.tfvars -auto-approve'
-            }
-        }
+
+    stage('Terraform Apply') {
+//      input {
+//        message "Should we continue?"
+//      }
+      steps {
+        sh 'terraform ${ACTION} -var-file=env-${ENV}/inputs.tfvars -auto-approve'
+      }
     }
+
+  }
+
 }
