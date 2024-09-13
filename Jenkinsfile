@@ -15,7 +15,7 @@ pipeline {
     stage('Terraform Plan') {
       steps {
         sh 'terraform init -reconfigure -backend-config=env-${ENV}/state.tfvars'
-        sh 'terraform plan -var-file=env-${ENV}/inputs.tfvars'
+        sh 'terraform plan -var-file=env-${ENV}/input.tfvars'
       }
     }
 
@@ -24,7 +24,7 @@ pipeline {
 //        message "Should we continue?"
 //      }
       steps {
-        sh 'terraform ${ACTION} -var-file=env-${ENV}/inputs.tfvars -auto-approve'
+        sh 'terraform ${ACTION} -var-file=env-${ENV}/input.tfvars -auto-approve'
       }
     }
 
