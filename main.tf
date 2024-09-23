@@ -47,15 +47,15 @@ module "frontend" {
   vpc_id            = module.vpc.vpc_id
   subnets           = module.vpc.private_subnet
   bastion_node_cidr = var.bastion_node_cidr
-  max_size                  = var.max_size
-  min_size                  = var.min_size
-  desired_capacity          = var.desired_capacity
+  max_size          = var.max_size
+  min_size          = var.min_size
+  desired_capacity  = var.desired_capacity
 
 }
 
 
-  module "backend" {
-  depends_on        = [module.mysql]
+module "backend" {
+  depends_on = [module.mysql]
   source            = "./modules/app"
   app_port          = 8080
   component         = "backend"
@@ -65,16 +65,18 @@ module "frontend" {
   vpc_id            = module.vpc.vpc_id
   subnets           = module.vpc.private_subnet
   bastion_node_cidr = var.bastion_node_cidr
-  max_size                  = var.max_size
-  min_size                  = var.min_size
-  desired_capacity          = var.desired_capacity
+  max_size          = var.max_size
+  min_size          = var.min_size
+  desired_capacity  = var.desired_capacity
 }
 
 module "mysql" {
-  source    = "./modules/rds"
-  vpc_cidr  = var.vpc_cidr
-  component = "mysql"
-  env       = var.env
-  subnets   = module.vpc.private_subnet
-  vpc_id    = module.vpc.vpc_id
+  source     = "./modules/rds"
+  vpc_cidr   = var.vpc_cidr
+  component  = "mysql"
+  env        = var.env
+  subnets    = module.vpc.private_subnet
+  vpc_id     = module.vpc.vpc_id
+  kms_key_id = var.kms_key_id
+
 }
