@@ -50,6 +50,7 @@ module "frontend" {
   max_size          = var.max_size
   min_size          = var.min_size
   desired_capacity  = var.desired_capacity
+  kms_key_id        = var.kms_key_id
 
 }
 
@@ -68,6 +69,7 @@ module "backend" {
   max_size          = var.max_size
   min_size          = var.min_size
   desired_capacity  = var.desired_capacity
+  kms_key_id        = var.kms_key_id
 }
 
 module "mysql" {
