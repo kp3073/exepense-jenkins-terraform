@@ -67,6 +67,7 @@ resource "aws_iam_role" "iam_role" {
           "Sid" : "VisualEditor0",
           "Effect" : "Allow",
           "Action" : [
+            "kms:Decrypt",
             "ssm:DescribeParameters",
             "ssm:GetParameterHistory",
             "ssm:GetParametersByPath",
@@ -95,6 +96,15 @@ resource "aws_launch_template" "temp" {
 
   iam_instance_profile {
     name = aws_iam_instance_profile.instance_profile.name
+  }
+  block_device_mappings {
+    device_name = "/dev/sdf"
+
+    ebs {
+      volume_size           = 10
+      encrypted             = true
+      delete_on_termination = true
+    }
   }
 
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
