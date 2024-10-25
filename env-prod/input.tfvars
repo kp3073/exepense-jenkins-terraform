@@ -12,3 +12,4 @@ max_size                   = 5
 min_size                   = 2
 desired_capacity           = 2
 kms_key_id                 = "arn:aws:kms:us-east-1:471112727668:key/619416f9-8535-4dfd-b4d4-9d429aada3e7"
+project_name               = "expense"
