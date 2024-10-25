@@ -13,3 +13,5 @@ variable "min_size" {}
 variable "desired_capacity" {}
 variable "kms_key_id" {}
 variable "project_name" {}
+variable "size" {}
+variable "instance_type" {}

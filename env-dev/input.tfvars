@@ -12,4 +12,9 @@ max_size                   = 1
 min_size                   = 1
 desired_capacity           = 1
 kms_key_id                 = "arn:aws:kms:us-east-1:471112727668:key/619416f9-8535-4dfd-b4d4-9d429aada3e7"
-project_name               = "expense"
+project_name = "expense"
+
+#eks
+
+size = 2 #this is node size
+instance_type = ["t3.small"]

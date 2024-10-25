@@ -84,8 +84,10 @@ module "vpc" {
 # }
 
 module "eks" {
-  source       = "./modules/eks"
-  env          = var.env
-  subnet_ids   = module.vpc.private_subnet
-  project_name = var.project_name
+  source        = "./modules/eks"
+  env           = var.env
+  subnet_ids    = module.vpc.private_subnet
+  project_name  = var.project_name
+  size          = var.size
+  instance_type = var.instance_type
 }
