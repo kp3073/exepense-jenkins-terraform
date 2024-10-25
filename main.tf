@@ -72,16 +72,16 @@ module "vpc" {
 #   #   kms_key_id        = var.kms_key_id
 # }
 #
-# module "mysql" {
-#   source     = "./modules/rds"
-#   vpc_cidr   = var.vpc_cidr
-#   component  = "mysql"
-#   env        = var.env
-#   subnets    = module.vpc.private_subnet
-#   vpc_id     = module.vpc.vpc_id
-#   kms_key_id = var.kms_key_id
-#
-# }
+module "mysql" {
+  source     = "./modules/rds"
+  vpc_cidr   = var.vpc_cidr
+  component  = "mysql"
+  env        = var.env
+  subnets    = module.vpc.private_subnet
+  vpc_id     = module.vpc.vpc_id
+  kms_key_id = var.kms_key_id
+
+}
 
 module "eks" {
   source        = "./modules/eks"
