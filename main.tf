@@ -82,3 +82,10 @@ module "mysql" {
   kms_key_id = var.kms_key_id
 
 }
+
+module "eks" {
+  source       = "./modules/eks"
+  env          = var.env
+  subnet_ids   = module.vpc.private_subnet
+  project_name = var.project_name
+}
