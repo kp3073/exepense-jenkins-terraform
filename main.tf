@@ -92,7 +92,3 @@ module "eks" {
   instance_type = var.instance_type
 }
 
-output "external" {
-  value = module.eks
-}
-
