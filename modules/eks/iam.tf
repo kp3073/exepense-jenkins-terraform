@@ -59,6 +59,7 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
 }
 
 # data "external" "thumbprint" {
+#   depends_on = [aws_eks_cluster.main]
 #   program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
 # }
 #
