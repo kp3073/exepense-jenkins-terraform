@@ -58,12 +58,20 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
   role       = aws_iam_role.node.name
 }
 
-resource "aws_iam_openid_connect_provider" "default" {
-  url = "https://accounts.google.com"
+data "external" "thumbprint" {
+  program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
+}
 
-  client_id_list = [
-    "266362248691-342342xasdasdasda-apps.googleusercontent.com",
-  ]
+# resource "aws_iam_openid_connect_provider" "default" {
+#   url = aws_eks_cluster.main.identity[0].oidc[0].issuer
+#
+#   client_id_list = [
+#     split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]
+#   ]
+#
+#   thumbprint_list = [data.external.thumbprint.result]
+# }
 
-  thumbprint_list = ["cf23df2207d99a74fbe169e3eba035e633b65d94"]
+output "external" {
+  value = "[data.external.thumbprint.result]"
 }
