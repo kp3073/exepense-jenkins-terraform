@@ -40,6 +40,10 @@ resource "aws_eks_node_group" "main" {
 #     issuer_url                    = "your issuer_url"
 #   }
 # }
+# output "eks" {
+#   value = "aws eks describe-cluster -- name $prod-expense --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5"
+# }
+
 output "eks" {
-  value = "aws eks describe-cluster -- name $prod-expense --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5"
+  value = aws_eks_cluster.main
 }

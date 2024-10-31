@@ -93,5 +93,5 @@ module "eks" {
 }
 
 output "" {
-  value = "module.eks"
+  value = module.eks
 }
