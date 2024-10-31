@@ -47,3 +47,4 @@ resource "aws_eks_node_group" "main" {
 output "eks" {
   value = aws_eks_cluster.main
 }
+

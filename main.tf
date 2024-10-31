@@ -92,6 +92,10 @@ module "eks" {
   instance_type = var.instance_type
 }
 
+# output "eks" {
+#   value = module.eks
+# }
+
 output "eks" {
-  value = module.eks
+  value = module.eks.eks.identity[0].oidc[0].issuer
 }
