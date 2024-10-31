@@ -31,20 +31,4 @@ resource "aws_eks_node_group" "main" {
   }
 }
 
-# resource "aws_eks_identity_provider_config" "main" {
-#   cluster_name = aws_eks_cluster.main.name
-#
-#   oidc {
-#     client_id                     = aws eks describe-cluster -- name $prod-expense --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5
-#     identity_provider_config_name = "eks-config"
-#     issuer_url                    = "your issuer_url"
-#   }
-# }
-# output "eks" {
-#   value = "aws eks describe-cluster -- name $prod-expense --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5"
-# }
-
-output "eks" {
-  value = aws_eks_cluster.main
-}
 
