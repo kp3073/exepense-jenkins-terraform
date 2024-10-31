@@ -97,6 +97,6 @@ module "eks" {
 # }
 
 output "eks" {
-  value = split("/", "module.eks.eks.identity[0].oidc[0].issuer")[4]
+  value = split("/", module.eks.eks.identity[0].oidc[0].issuer)[4]
 }
 
