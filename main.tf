@@ -92,6 +92,6 @@ module "eks" {
   instance_type = var.instance_type
 }
 
-output "" {
+output "eks" {
   value = module.eks
 }
