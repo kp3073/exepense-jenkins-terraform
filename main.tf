@@ -91,3 +91,6 @@ module "eks" {
   size          = var.size
   instance_type = var.instance_type
 }
+output "eks" {
+  value = "aws eks describe-cluster -- name $prod-expense --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5"
+}
