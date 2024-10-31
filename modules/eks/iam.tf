@@ -58,9 +58,9 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
   role       = aws_iam_role.node.name
 }
 
-data "external" "thumbprint" {
-  program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
-}
+# data "external" "thumbprint" {
+#   program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
+# }
 
 resource "aws_iam_openid_connect_provider" "default" {
   url = aws_eks_cluster.main.identity[0].oidc[0].issuer
