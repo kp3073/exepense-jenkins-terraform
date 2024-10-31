@@ -139,4 +139,4 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
 #       }
 #     ]
 #   })
-}
+# }
