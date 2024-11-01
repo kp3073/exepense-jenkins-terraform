@@ -63,7 +63,7 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
 #   program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
 # }
 #
-# resource "aws_iam_openid_connect_provider" "default" {
+# resource "aws_iam_openid_connect_provider" "eks" {
 #   url = aws_eks_cluster.main.identity[0].oidc[0].issuer
 #
 #   client_id_list = [
