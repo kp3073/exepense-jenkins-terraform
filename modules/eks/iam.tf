@@ -117,94 +117,138 @@ resource "aws_iam_role" "frontend-eks-sa" {
     })
   }
 }
+resource "aws_iam_role" "frontend-eks-sa" {
+  name = "${var.env}-${var.project_name}-frontend-eks-sa"
+
+  assume_role_policy = jsonencode({
+  "Version" : "2012-10-17",
+      "Statement" : [
+      {
+      "Effect" : "Allow",
+      "Principal" : {
+      "Federated" : "arn:aws:iam::471112727668:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}"
+      },
+      "Action" : "sts:AssumeRoleWithWebIdentity",
+      "Condition" : {
+      "StringEquals" : {
+      "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:aud" : "sts.amazonaws.com",
+      "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:sub" : "system:serviceaccount:default:frontend"
+      }
+      }
+      }
+      ]
+  })
+
+inline_policy {
+      name = "inline"
+      policy = jsonencode({
+        "Version" : "2012-10-17",
+        "Statement" : [
+        {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+        "kms:Decrypt",
+        "ssm:DescribeParameters",
+        "ssm:GetParameterHistory",
+        "ssm:GetParametersByPath",
+        "ssm:GetParameters",
+        "ssm:GetParameter"
+        ],
+        "Resource" : "*"
+        }
+        ]
+        })
+        }
+}
 
 resource "aws_iam_role" "backend-eks-sa" {
-  name = "${var.env}-${var.project_name}-backend-eks-sa"
+      name = "${var.env}-${var.project_name}-backend-eks-sa"
 
-  assume_role_policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Principal" : {
-          "Federated" : "arn:aws:iam::471112727668:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}"
-        },
-        "Action" : "sts:AssumeRoleWithWebIdentity",
-        "Condition" : {
-          "StringEquals" : {
-            "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:aud" : "sts.amazonaws.com",
-            "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:sub" : "system:serviceaccount:default:backend"
-          }
-        }
-      }
-    ]
-  })
-
-      inline_policy {
-      name = inline-policy"
-
-      policy = jsonencode({
+      assume_role_policy = jsonencode({
       "Version" : "2012-10-17",
       "Statement" : [
       {
-      "Sid" : "VisualEditor0",
       "Effect" : "Allow",
-      "Action" : [
-      "kms:Decrypt",
-      "ssm:DescribeParameters",
-      "ssm:GetParameterHistory",
-      "ssm:GetParametersByPath",
-      "ssm:GetParameters",
-      "ssm:GetParameter"
-      ],
-      "Resource" : "*"
+      "Principal" : {
+      "Federated" : "arn:aws:iam::471112727668:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}"
+      },
+      "Action" : "sts:AssumeRoleWithWebIdentity",
+      "Condition" : {
+      "StringEquals" : {
+      "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:aud" : "sts.amazonaws.com",
+      "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:sub" : "system:serviceaccount:default:backend"
+      }
+      }
       }
       ]
-      })
-      }
-}
+})
+
+inline_policy {
+      name = "inline"
+      policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+    {
+    "Sid" : "VisualEditor0",
+    "Effect" : "Allow",
+    "Action" : [
+    "kms:Decrypt",
+    "ssm:DescribeParameters",
+    "ssm:GetParameterHistory",
+    "ssm:GetParametersByPath",
+    "ssm:GetParameters",
+    "ssm:GetParameter"
+    ],
+    "Resource" : "*"
+    }
+    ]
+    })
+    }
+    }
 
 resource "aws_iam_role" "schema-eks-sa" {
-  name = "${var.env}-${var.project_name}-schema-eks-sa"
+name = "${var.env}-${var.project_name}-schema-eks-sa"
 
-  assume_role_policy = jsonencode({
+assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Principal" : {
-          "Federated" : "arn:aws:iam::471112727668:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}"
-        },
-        "Action" : "sts:AssumeRoleWithWebIdentity",
-        "Condition" : {
-          "StringEquals" : {
-            "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:aud" : "sts.amazonaws.com",
-            "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:sub" : "system:serviceaccount:default:schema"
-          }
-        }
-      }
-    ]
-  })
-      inline_policy {
-      name = inline-policy"
+    {
+    "Effect" : "Allow",
+    "Principal" : {
+    "Federated" : "arn:aws:iam::471112727668:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}"
+    },
+    "Action" : "sts:AssumeRoleWithWebIdentity",
+    "Condition" : {
+    "StringEquals" : {
+    "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:aud" : "sts.amazonaws.com",
+    "oidc.eks.us-east-1.amazonaws.com/id/${split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]}:sub" : "system:serviceaccount:default:schema"
+    }
+    }
+    }
+]
+})
 
-      policy = jsonencode({
-      "Version" : "2012-10-17",
-      "Statement" : [
-      {
-      "Sid" : "VisualEditor0",
-      "Effect" : "Allow",
-      "Action" : [
-      "kms:Decrypt",
-      "ssm:DescribeParameters",
-      "ssm:GetParameterHistory",
-      "ssm:GetParametersByPath",
-      "ssm:GetParameters",
-      "ssm:GetParameter"
-      ],
-      "Resource" : "*"
-      }
-      ]
-      })
-      }
+    inline_policy {
+    name = "inline"
+        policy = jsonencode({
+        "Version" : "2012-10-17",
+        "Statement" : [
+        {
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
+        "kms:Decrypt",
+        "ssm:DescribeParameters",
+        "ssm:GetParameterHistory",
+        "ssm:GetParametersByPath",
+        "ssm:GetParameters",
+        "ssm:GetParameter"
+        ],
+        "Resource" : "*"
+        }
+        ]
+    })
+    }
 }
+
