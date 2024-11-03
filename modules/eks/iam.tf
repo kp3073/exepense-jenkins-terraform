@@ -478,4 +478,3 @@ resource "aws_iam_role" "schema-eks-sa" {
 #     })
 #   }
 
-}
