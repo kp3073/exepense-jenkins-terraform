@@ -58,21 +58,21 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
   role       = aws_iam_role.node.name
 }
 
-data "external" "thumbprint" {
-  depends_on = [aws_eks_cluster.main]
-  program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
-}
-
-resource "aws_iam_openid_connect_provider" "eks" {
-  url = aws_eks_cluster.main.identity[0].oidc[0].issuer
-
-  client_id_list = [
-    "sts.amazonaws.com"
-  ]
-
-  thumbprint_list = [lookup(data.external.thumbprint.result, "thumbprint", null)]
-}
+# data "external" "thumbprint" {
+#   depends_on = [aws_eks_cluster.main]
+#   program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
+# }
 #
+# resource "aws_iam_openid_connect_provider" "eks" {
+#   url = aws_eks_cluster.main.identity[0].oidc[0].issuer
+#
+#   client_id_list = [
+#     "sts.amazonaws.com"
+#   ]
+#
+#   thumbprint_list = [lookup(data.external.thumbprint.result, "thumbprint", null)]
+# }
+# #
 # resource "aws_iam_role" "frontend-eks-sa" {
 #   name = "${var.env}-${var.project_name}-frontend-eks-sa"
 #
