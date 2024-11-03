@@ -12,9 +12,9 @@ resource "null_resource" "aws-auth" {
   depends_on = [aws_eks_cluster.main]
   provisioner "local-exec" {
     command = <<EOF
-aws eks update-kubeconfig --name ${var.env}-${var.project_name}
-aws-auth upsert --mapusers --userarn arn:aws:iam::471112727668:user/keyur --username keyu --groups system:masters
-  EOF
+    aws eks update-kubeconfig --name ${var.env}-${var.project_name}
+    aws-auth upsert --mapusers --userarn arn:aws:iam::471112727668:user/keyur --username keyur --groups system:masters
+    EOF
   }
 }
 
