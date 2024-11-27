@@ -60,7 +60,7 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
 
 data "external" "thumbprint" {
   depends_on = [aws_eks_cluster.main]
-  program = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
+  program    = ["bash", "${path.module}/thumprint.sh", "${var.env}-${var.project_name}"]
 }
 
 resource "aws_iam_openid_connect_provider" "eks" {
@@ -97,7 +97,7 @@ resource "aws_iam_role" "frontend-eks-sa" {
   })
 
   inline_policy {
-    name = "inline"
+    name = "${var.env}-${var.project_name}-frontend-eks-sa"
 
     policy = jsonencode({
       "Version" : "2012-10-17",
@@ -142,7 +142,7 @@ resource "aws_iam_role" "backend-eks-sa" {
   })
 
   inline_policy {
-    name = "inline"
+    name = "${var.env}-${var.project_name}-backend-eks-sa"
 
     policy = jsonencode({
       "Version" : "2012-10-17",
@@ -187,7 +187,7 @@ resource "aws_iam_role" "schema-eks-sa" {
   })
 
   inline_policy {
-    name = "inline"
+    name = "${var.env}-${var.project_name}-schema-eks-sa"
 
     policy = jsonencode({
       "Version" : "2012-10-17",
