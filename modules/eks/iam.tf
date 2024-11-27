@@ -97,7 +97,7 @@ resource "aws_iam_role" "frontend-eks-sa" {
   })
 
   inline_policy {
-    name = "${var.env}-${var.project_name}-frontend-eks-sa"
+    name = "inline"
 
     policy = jsonencode({
       "Version" : "2012-10-17",
@@ -142,7 +142,7 @@ resource "aws_iam_role" "backend-eks-sa" {
   })
 
   inline_policy {
-    name = "${var.env}-${var.project_name}-backend-eks-sa"
+    name = "inline"
 
     policy = jsonencode({
       "Version" : "2012-10-17",
@@ -187,7 +187,7 @@ resource "aws_iam_role" "schema-eks-sa" {
   })
 
   inline_policy {
-    name = "${var.env}-${var.project_name}-schema-eks-sa"
+    name = "inline"
 
     policy = jsonencode({
       "Version" : "2012-10-17",
